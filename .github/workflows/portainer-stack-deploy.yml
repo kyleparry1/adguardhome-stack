@@ -12,7 +12,7 @@ jobs:
       - name: "Portainer Deploy"
         uses: cssnr/portainer-stack-deploy-action@v1
         with:
-          name: "template"
+          name: "dns"
           file: "docker-compose.yml"
           url: ${{ secrets.PORTAINER_URL }}
           token: ${{ secrets.PORTAINER_TOKEN }}

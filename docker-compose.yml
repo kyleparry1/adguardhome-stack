@@ -1,9 +1,28 @@
 version: "3.8"
 
 services:
-  template:
-    image: nginx:alpine
-    container_name: template
+  adguardhome:
+    image: adguard/adguardhome:latest
+    container_name: adguardhome
     ports:
-      - "8888:80"
+      - "53:53" # dns
+      - "8082:8082" # admin panel
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /volume2/docker/data/adguardhome/work:/opt/adguardhome/work
+      - /volume2/docker/data/adguardhome/conf:/opt/adguardhome/conf
+    restart: unless-stopped
+
+  adguardhome-sync:
+    image: lscr.io/linuxserver/adguardhome-sync:latest
+    container_name: adguardhome-sync
+    ports:
+      - "8083:8083" # admin panel
+    environment:
+      TZ: Europe/London
+      PUID: 1000
+      PGID: 10
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /volume2/docker/data/adguardhome-sync/config:/config
     restart: unless-stopped
