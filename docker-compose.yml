@@ -4,9 +4,7 @@ services:
   adguardhome:
     image: adguard/adguardhome:latest
     container_name: adguardhome
-    ports:
-      - "53:53" # dns
-      - "8082:8082" # admin panel
+    network_mode: host
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /volume2/docker/data/adguardhome/work:/opt/adguardhome/work
